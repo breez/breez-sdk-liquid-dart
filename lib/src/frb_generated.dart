@@ -58,7 +58,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   int get rustContentHash => -1318462354;
 
   static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
-    stem: 'breez_liquid_sdk',
+    stem: 'breez_sdk_liquid',
     ioDirectory: '../../lib/core/target/release/',
     webPrefix: 'pkg/',
   );

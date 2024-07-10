@@ -43,8 +43,8 @@ class Config {
   /// Send payment timeout. See [crate::sdk::LiquidSdk::send_payment]
   final BigInt paymentTimeoutSec;
 
-  /// Zero-conf minimum accepted fee-rate in sat/vbyte
-  final double zeroConfMinFeeRate;
+  /// Zero-conf minimum accepted fee-rate in millisatoshis per vbyte
+  final int zeroConfMinFeeRateMsat;
 
   /// Maximum amount in satoshi to accept zero-conf payments with
   /// Defaults to [crate::receive_swap::DEFAULT_ZERO_CONF_MAX_SAT]
@@ -56,7 +56,7 @@ class Config {
     required this.workingDir,
     required this.network,
     required this.paymentTimeoutSec,
-    required this.zeroConfMinFeeRate,
+    required this.zeroConfMinFeeRateMsat,
     this.zeroConfMaxAmountSat,
   });
 
@@ -67,7 +67,7 @@ class Config {
       workingDir.hashCode ^
       network.hashCode ^
       paymentTimeoutSec.hashCode ^
-      zeroConfMinFeeRate.hashCode ^
+      zeroConfMinFeeRateMsat.hashCode ^
       zeroConfMaxAmountSat.hashCode;
 
   @override
@@ -80,7 +80,7 @@ class Config {
           workingDir == other.workingDir &&
           network == other.network &&
           paymentTimeoutSec == other.paymentTimeoutSec &&
-          zeroConfMinFeeRate == other.zeroConfMinFeeRate &&
+          zeroConfMinFeeRateMsat == other.zeroConfMinFeeRateMsat &&
           zeroConfMaxAmountSat == other.zeroConfMaxAmountSat;
 }
 
@@ -195,31 +195,6 @@ enum LiquidNetwork {
   /// Testnet Bitcoin and Liquid chains
   testnet,
   ;
-}
-
-@freezed
-sealed class LiquidSdkEvent with _$LiquidSdkEvent {
-  const LiquidSdkEvent._();
-
-  const factory LiquidSdkEvent.paymentFailed({
-    required Payment details,
-  }) = LiquidSdkEvent_PaymentFailed;
-  const factory LiquidSdkEvent.paymentPending({
-    required Payment details,
-  }) = LiquidSdkEvent_PaymentPending;
-  const factory LiquidSdkEvent.paymentRefunded({
-    required Payment details,
-  }) = LiquidSdkEvent_PaymentRefunded;
-  const factory LiquidSdkEvent.paymentRefundPending({
-    required Payment details,
-  }) = LiquidSdkEvent_PaymentRefundPending;
-  const factory LiquidSdkEvent.paymentSucceeded({
-    required Payment details,
-  }) = LiquidSdkEvent_PaymentSucceeded;
-  const factory LiquidSdkEvent.paymentWaitingConfirmation({
-    required Payment details,
-  }) = LiquidSdkEvent_PaymentWaitingConfirmation;
-  const factory LiquidSdkEvent.synced() = LiquidSdkEvent_Synced;
 }
 
 @freezed
@@ -821,6 +796,31 @@ class RestoreRequest {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RestoreRequest && runtimeType == other.runtimeType && backupPath == other.backupPath;
+}
+
+@freezed
+sealed class SdkEvent with _$SdkEvent {
+  const SdkEvent._();
+
+  const factory SdkEvent.paymentFailed({
+    required Payment details,
+  }) = SdkEvent_PaymentFailed;
+  const factory SdkEvent.paymentPending({
+    required Payment details,
+  }) = SdkEvent_PaymentPending;
+  const factory SdkEvent.paymentRefunded({
+    required Payment details,
+  }) = SdkEvent_PaymentRefunded;
+  const factory SdkEvent.paymentRefundPending({
+    required Payment details,
+  }) = SdkEvent_PaymentRefundPending;
+  const factory SdkEvent.paymentSucceeded({
+    required Payment details,
+  }) = SdkEvent_PaymentSucceeded;
+  const factory SdkEvent.paymentWaitingConfirmation({
+    required Payment details,
+  }) = SdkEvent_PaymentWaitingConfirmation;
+  const factory SdkEvent.synced() = SdkEvent_Synced;
 }
 
 class SendPaymentResponse {

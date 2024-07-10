@@ -15,254 +15,6 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$LiquidSdkError {}
-
-/// @nodoc
-abstract class $LiquidSdkErrorCopyWith<$Res> {
-  factory $LiquidSdkErrorCopyWith(LiquidSdkError value, $Res Function(LiquidSdkError) then) =
-      _$LiquidSdkErrorCopyWithImpl<$Res, LiquidSdkError>;
-}
-
-/// @nodoc
-class _$LiquidSdkErrorCopyWithImpl<$Res, $Val extends LiquidSdkError>
-    implements $LiquidSdkErrorCopyWith<$Res> {
-  _$LiquidSdkErrorCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$LiquidSdkError_AlreadyStartedImplCopyWith<$Res> {
-  factory _$$LiquidSdkError_AlreadyStartedImplCopyWith(_$LiquidSdkError_AlreadyStartedImpl value,
-          $Res Function(_$LiquidSdkError_AlreadyStartedImpl) then) =
-      __$$LiquidSdkError_AlreadyStartedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LiquidSdkError_AlreadyStartedImplCopyWithImpl<$Res>
-    extends _$LiquidSdkErrorCopyWithImpl<$Res, _$LiquidSdkError_AlreadyStartedImpl>
-    implements _$$LiquidSdkError_AlreadyStartedImplCopyWith<$Res> {
-  __$$LiquidSdkError_AlreadyStartedImplCopyWithImpl(
-      _$LiquidSdkError_AlreadyStartedImpl _value, $Res Function(_$LiquidSdkError_AlreadyStartedImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LiquidSdkError_AlreadyStartedImpl extends LiquidSdkError_AlreadyStarted {
-  const _$LiquidSdkError_AlreadyStartedImpl() : super._();
-
-  @override
-  String toString() {
-    return 'LiquidSdkError.alreadyStarted()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LiquidSdkError_AlreadyStartedImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-abstract class LiquidSdkError_AlreadyStarted extends LiquidSdkError {
-  const factory LiquidSdkError_AlreadyStarted() = _$LiquidSdkError_AlreadyStartedImpl;
-  const LiquidSdkError_AlreadyStarted._() : super._();
-}
-
-/// @nodoc
-abstract class _$$LiquidSdkError_GenericImplCopyWith<$Res> {
-  factory _$$LiquidSdkError_GenericImplCopyWith(
-          _$LiquidSdkError_GenericImpl value, $Res Function(_$LiquidSdkError_GenericImpl) then) =
-      __$$LiquidSdkError_GenericImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String err});
-}
-
-/// @nodoc
-class __$$LiquidSdkError_GenericImplCopyWithImpl<$Res>
-    extends _$LiquidSdkErrorCopyWithImpl<$Res, _$LiquidSdkError_GenericImpl>
-    implements _$$LiquidSdkError_GenericImplCopyWith<$Res> {
-  __$$LiquidSdkError_GenericImplCopyWithImpl(
-      _$LiquidSdkError_GenericImpl _value, $Res Function(_$LiquidSdkError_GenericImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? err = null,
-  }) {
-    return _then(_$LiquidSdkError_GenericImpl(
-      err: null == err
-          ? _value.err
-          : err // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$LiquidSdkError_GenericImpl extends LiquidSdkError_Generic {
-  const _$LiquidSdkError_GenericImpl({required this.err}) : super._();
-
-  @override
-  final String err;
-
-  @override
-  String toString() {
-    return 'LiquidSdkError.generic(err: $err)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LiquidSdkError_GenericImpl &&
-            (identical(other.err, err) || other.err == err));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, err);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LiquidSdkError_GenericImplCopyWith<_$LiquidSdkError_GenericImpl> get copyWith =>
-      __$$LiquidSdkError_GenericImplCopyWithImpl<_$LiquidSdkError_GenericImpl>(this, _$identity);
-}
-
-abstract class LiquidSdkError_Generic extends LiquidSdkError {
-  const factory LiquidSdkError_Generic({required final String err}) = _$LiquidSdkError_GenericImpl;
-  const LiquidSdkError_Generic._() : super._();
-
-  String get err;
-  @JsonKey(ignore: true)
-  _$$LiquidSdkError_GenericImplCopyWith<_$LiquidSdkError_GenericImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$LiquidSdkError_NotStartedImplCopyWith<$Res> {
-  factory _$$LiquidSdkError_NotStartedImplCopyWith(
-          _$LiquidSdkError_NotStartedImpl value, $Res Function(_$LiquidSdkError_NotStartedImpl) then) =
-      __$$LiquidSdkError_NotStartedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LiquidSdkError_NotStartedImplCopyWithImpl<$Res>
-    extends _$LiquidSdkErrorCopyWithImpl<$Res, _$LiquidSdkError_NotStartedImpl>
-    implements _$$LiquidSdkError_NotStartedImplCopyWith<$Res> {
-  __$$LiquidSdkError_NotStartedImplCopyWithImpl(
-      _$LiquidSdkError_NotStartedImpl _value, $Res Function(_$LiquidSdkError_NotStartedImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LiquidSdkError_NotStartedImpl extends LiquidSdkError_NotStarted {
-  const _$LiquidSdkError_NotStartedImpl() : super._();
-
-  @override
-  String toString() {
-    return 'LiquidSdkError.notStarted()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LiquidSdkError_NotStartedImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-abstract class LiquidSdkError_NotStarted extends LiquidSdkError {
-  const factory LiquidSdkError_NotStarted() = _$LiquidSdkError_NotStartedImpl;
-  const LiquidSdkError_NotStarted._() : super._();
-}
-
-/// @nodoc
-abstract class _$$LiquidSdkError_ServiceConnectivityImplCopyWith<$Res> {
-  factory _$$LiquidSdkError_ServiceConnectivityImplCopyWith(_$LiquidSdkError_ServiceConnectivityImpl value,
-          $Res Function(_$LiquidSdkError_ServiceConnectivityImpl) then) =
-      __$$LiquidSdkError_ServiceConnectivityImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String err});
-}
-
-/// @nodoc
-class __$$LiquidSdkError_ServiceConnectivityImplCopyWithImpl<$Res>
-    extends _$LiquidSdkErrorCopyWithImpl<$Res, _$LiquidSdkError_ServiceConnectivityImpl>
-    implements _$$LiquidSdkError_ServiceConnectivityImplCopyWith<$Res> {
-  __$$LiquidSdkError_ServiceConnectivityImplCopyWithImpl(_$LiquidSdkError_ServiceConnectivityImpl _value,
-      $Res Function(_$LiquidSdkError_ServiceConnectivityImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? err = null,
-  }) {
-    return _then(_$LiquidSdkError_ServiceConnectivityImpl(
-      err: null == err
-          ? _value.err
-          : err // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$LiquidSdkError_ServiceConnectivityImpl extends LiquidSdkError_ServiceConnectivity {
-  const _$LiquidSdkError_ServiceConnectivityImpl({required this.err}) : super._();
-
-  @override
-  final String err;
-
-  @override
-  String toString() {
-    return 'LiquidSdkError.serviceConnectivity(err: $err)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LiquidSdkError_ServiceConnectivityImpl &&
-            (identical(other.err, err) || other.err == err));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, err);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LiquidSdkError_ServiceConnectivityImplCopyWith<_$LiquidSdkError_ServiceConnectivityImpl> get copyWith =>
-      __$$LiquidSdkError_ServiceConnectivityImplCopyWithImpl<_$LiquidSdkError_ServiceConnectivityImpl>(
-          this, _$identity);
-}
-
-abstract class LiquidSdkError_ServiceConnectivity extends LiquidSdkError {
-  const factory LiquidSdkError_ServiceConnectivity({required final String err}) =
-      _$LiquidSdkError_ServiceConnectivityImpl;
-  const LiquidSdkError_ServiceConnectivity._() : super._();
-
-  String get err;
-  @JsonKey(ignore: true)
-  _$$LiquidSdkError_ServiceConnectivityImplCopyWith<_$LiquidSdkError_ServiceConnectivityImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
 mixin _$PaymentError {}
 
 /// @nodoc
@@ -279,6 +31,9 @@ class _$PaymentErrorCopyWithImpl<$Res, $Val extends PaymentError> implements $Pa
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -295,6 +50,9 @@ class __$$PaymentError_AlreadyClaimedImplCopyWithImpl<$Res>
   __$$PaymentError_AlreadyClaimedImplCopyWithImpl(
       _$PaymentError_AlreadyClaimedImpl _value, $Res Function(_$PaymentError_AlreadyClaimedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -336,6 +94,9 @@ class __$$PaymentError_AlreadyPaidImplCopyWithImpl<$Res>
   __$$PaymentError_AlreadyPaidImplCopyWithImpl(
       _$PaymentError_AlreadyPaidImpl _value, $Res Function(_$PaymentError_AlreadyPaidImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -377,6 +138,9 @@ class __$$PaymentError_PaymentInProgressImplCopyWithImpl<$Res>
   __$$PaymentError_PaymentInProgressImplCopyWithImpl(
       _$PaymentError_PaymentInProgressImpl _value, $Res Function(_$PaymentError_PaymentInProgressImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -418,6 +182,9 @@ class __$$PaymentError_AmountOutOfRangeImplCopyWithImpl<$Res>
   __$$PaymentError_AmountOutOfRangeImplCopyWithImpl(
       _$PaymentError_AmountOutOfRangeImpl _value, $Res Function(_$PaymentError_AmountOutOfRangeImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -462,6 +229,8 @@ class __$$PaymentError_GenericImplCopyWithImpl<$Res>
       _$PaymentError_GenericImpl _value, $Res Function(_$PaymentError_GenericImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -500,7 +269,9 @@ class _$PaymentError_GenericImpl extends PaymentError_Generic {
   @override
   int get hashCode => Object.hash(runtimeType, err);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentError_GenericImplCopyWith<_$PaymentError_GenericImpl> get copyWith =>
@@ -512,7 +283,10 @@ abstract class PaymentError_Generic extends PaymentError {
   const PaymentError_Generic._() : super._();
 
   String get err;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentError_GenericImplCopyWith<_$PaymentError_GenericImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -531,6 +305,9 @@ class __$$PaymentError_InvalidOrExpiredFeesImplCopyWithImpl<$Res>
   __$$PaymentError_InvalidOrExpiredFeesImplCopyWithImpl(_$PaymentError_InvalidOrExpiredFeesImpl _value,
       $Res Function(_$PaymentError_InvalidOrExpiredFeesImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -572,6 +349,9 @@ class __$$PaymentError_InsufficientFundsImplCopyWithImpl<$Res>
   __$$PaymentError_InsufficientFundsImplCopyWithImpl(
       _$PaymentError_InsufficientFundsImpl _value, $Res Function(_$PaymentError_InsufficientFundsImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -616,6 +396,8 @@ class __$$PaymentError_InvalidInvoiceImplCopyWithImpl<$Res>
       _$PaymentError_InvalidInvoiceImpl _value, $Res Function(_$PaymentError_InvalidInvoiceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -654,7 +436,9 @@ class _$PaymentError_InvalidInvoiceImpl extends PaymentError_InvalidInvoice {
   @override
   int get hashCode => Object.hash(runtimeType, err);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentError_InvalidInvoiceImplCopyWith<_$PaymentError_InvalidInvoiceImpl> get copyWith =>
@@ -666,7 +450,10 @@ abstract class PaymentError_InvalidInvoice extends PaymentError {
   const PaymentError_InvalidInvoice._() : super._();
 
   String get err;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentError_InvalidInvoiceImplCopyWith<_$PaymentError_InvalidInvoiceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -685,6 +472,9 @@ class __$$PaymentError_InvalidPreimageImplCopyWithImpl<$Res>
   __$$PaymentError_InvalidPreimageImplCopyWithImpl(
       _$PaymentError_InvalidPreimageImpl _value, $Res Function(_$PaymentError_InvalidPreimageImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -729,6 +519,8 @@ class __$$PaymentError_LwkErrorImplCopyWithImpl<$Res>
       _$PaymentError_LwkErrorImpl _value, $Res Function(_$PaymentError_LwkErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -767,7 +559,9 @@ class _$PaymentError_LwkErrorImpl extends PaymentError_LwkError {
   @override
   int get hashCode => Object.hash(runtimeType, err);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentError_LwkErrorImplCopyWith<_$PaymentError_LwkErrorImpl> get copyWith =>
@@ -779,7 +573,10 @@ abstract class PaymentError_LwkError extends PaymentError {
   const PaymentError_LwkError._() : super._();
 
   String get err;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentError_LwkErrorImplCopyWith<_$PaymentError_LwkErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -798,6 +595,9 @@ class __$$PaymentError_PairsNotFoundImplCopyWithImpl<$Res>
   __$$PaymentError_PairsNotFoundImplCopyWithImpl(
       _$PaymentError_PairsNotFoundImpl _value, $Res Function(_$PaymentError_PairsNotFoundImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -839,6 +639,9 @@ class __$$PaymentError_PaymentTimeoutImplCopyWithImpl<$Res>
   __$$PaymentError_PaymentTimeoutImplCopyWithImpl(
       _$PaymentError_PaymentTimeoutImpl _value, $Res Function(_$PaymentError_PaymentTimeoutImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -880,6 +683,9 @@ class __$$PaymentError_PersistErrorImplCopyWithImpl<$Res>
   __$$PaymentError_PersistErrorImplCopyWithImpl(
       _$PaymentError_PersistErrorImpl _value, $Res Function(_$PaymentError_PersistErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -924,6 +730,8 @@ class __$$PaymentError_ReceiveErrorImplCopyWithImpl<$Res>
       _$PaymentError_ReceiveErrorImpl _value, $Res Function(_$PaymentError_ReceiveErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -962,7 +770,9 @@ class _$PaymentError_ReceiveErrorImpl extends PaymentError_ReceiveError {
   @override
   int get hashCode => Object.hash(runtimeType, err);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentError_ReceiveErrorImplCopyWith<_$PaymentError_ReceiveErrorImpl> get copyWith =>
@@ -974,7 +784,10 @@ abstract class PaymentError_ReceiveError extends PaymentError {
   const PaymentError_ReceiveError._() : super._();
 
   String get err;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentError_ReceiveErrorImplCopyWith<_$PaymentError_ReceiveErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -996,6 +809,8 @@ class __$$PaymentError_RefundedImplCopyWithImpl<$Res>
       _$PaymentError_RefundedImpl _value, $Res Function(_$PaymentError_RefundedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1042,7 +857,9 @@ class _$PaymentError_RefundedImpl extends PaymentError_Refunded {
   @override
   int get hashCode => Object.hash(runtimeType, err, refundTxId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentError_RefundedImplCopyWith<_$PaymentError_RefundedImpl> get copyWith =>
@@ -1056,7 +873,10 @@ abstract class PaymentError_Refunded extends PaymentError {
 
   String get err;
   String get refundTxId;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentError_RefundedImplCopyWith<_$PaymentError_RefundedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1077,6 +897,9 @@ class __$$PaymentError_SelfTransferNotSupportedImplCopyWithImpl<$Res>
       _$PaymentError_SelfTransferNotSupportedImpl _value,
       $Res Function(_$PaymentError_SelfTransferNotSupportedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1121,6 +944,8 @@ class __$$PaymentError_SendErrorImplCopyWithImpl<$Res>
       _$PaymentError_SendErrorImpl _value, $Res Function(_$PaymentError_SendErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1159,7 +984,9 @@ class _$PaymentError_SendErrorImpl extends PaymentError_SendError {
   @override
   int get hashCode => Object.hash(runtimeType, err);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentError_SendErrorImplCopyWith<_$PaymentError_SendErrorImpl> get copyWith =>
@@ -1171,7 +998,10 @@ abstract class PaymentError_SendError extends PaymentError {
   const PaymentError_SendError._() : super._();
 
   String get err;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentError_SendErrorImplCopyWith<_$PaymentError_SendErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1193,6 +1023,8 @@ class __$$PaymentError_SignerErrorImplCopyWithImpl<$Res>
       _$PaymentError_SignerErrorImpl _value, $Res Function(_$PaymentError_SignerErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1231,7 +1063,9 @@ class _$PaymentError_SignerErrorImpl extends PaymentError_SignerError {
   @override
   int get hashCode => Object.hash(runtimeType, err);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentError_SignerErrorImplCopyWith<_$PaymentError_SignerErrorImpl> get copyWith =>
@@ -1243,7 +1077,276 @@ abstract class PaymentError_SignerError extends PaymentError {
   const PaymentError_SignerError._() : super._();
 
   String get err;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PaymentError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentError_SignerErrorImplCopyWith<_$PaymentError_SignerErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$SdkError {}
+
+/// @nodoc
+abstract class $SdkErrorCopyWith<$Res> {
+  factory $SdkErrorCopyWith(SdkError value, $Res Function(SdkError) then) =
+      _$SdkErrorCopyWithImpl<$Res, SdkError>;
+}
+
+/// @nodoc
+class _$SdkErrorCopyWithImpl<$Res, $Val extends SdkError> implements $SdkErrorCopyWith<$Res> {
+  _$SdkErrorCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SdkError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+abstract class _$$SdkError_AlreadyStartedImplCopyWith<$Res> {
+  factory _$$SdkError_AlreadyStartedImplCopyWith(
+          _$SdkError_AlreadyStartedImpl value, $Res Function(_$SdkError_AlreadyStartedImpl) then) =
+      __$$SdkError_AlreadyStartedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SdkError_AlreadyStartedImplCopyWithImpl<$Res>
+    extends _$SdkErrorCopyWithImpl<$Res, _$SdkError_AlreadyStartedImpl>
+    implements _$$SdkError_AlreadyStartedImplCopyWith<$Res> {
+  __$$SdkError_AlreadyStartedImplCopyWithImpl(
+      _$SdkError_AlreadyStartedImpl _value, $Res Function(_$SdkError_AlreadyStartedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SdkError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SdkError_AlreadyStartedImpl extends SdkError_AlreadyStarted {
+  const _$SdkError_AlreadyStartedImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SdkError.alreadyStarted()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SdkError_AlreadyStartedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+}
+
+abstract class SdkError_AlreadyStarted extends SdkError {
+  const factory SdkError_AlreadyStarted() = _$SdkError_AlreadyStartedImpl;
+  const SdkError_AlreadyStarted._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SdkError_GenericImplCopyWith<$Res> {
+  factory _$$SdkError_GenericImplCopyWith(
+          _$SdkError_GenericImpl value, $Res Function(_$SdkError_GenericImpl) then) =
+      __$$SdkError_GenericImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String err});
+}
+
+/// @nodoc
+class __$$SdkError_GenericImplCopyWithImpl<$Res> extends _$SdkErrorCopyWithImpl<$Res, _$SdkError_GenericImpl>
+    implements _$$SdkError_GenericImplCopyWith<$Res> {
+  __$$SdkError_GenericImplCopyWithImpl(
+      _$SdkError_GenericImpl _value, $Res Function(_$SdkError_GenericImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SdkError
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? err = null,
+  }) {
+    return _then(_$SdkError_GenericImpl(
+      err: null == err
+          ? _value.err
+          : err // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SdkError_GenericImpl extends SdkError_Generic {
+  const _$SdkError_GenericImpl({required this.err}) : super._();
+
+  @override
+  final String err;
+
+  @override
+  String toString() {
+    return 'SdkError.generic(err: $err)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SdkError_GenericImpl &&
+            (identical(other.err, err) || other.err == err));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, err);
+
+  /// Create a copy of SdkError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SdkError_GenericImplCopyWith<_$SdkError_GenericImpl> get copyWith =>
+      __$$SdkError_GenericImplCopyWithImpl<_$SdkError_GenericImpl>(this, _$identity);
+}
+
+abstract class SdkError_Generic extends SdkError {
+  const factory SdkError_Generic({required final String err}) = _$SdkError_GenericImpl;
+  const SdkError_Generic._() : super._();
+
+  String get err;
+
+  /// Create a copy of SdkError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SdkError_GenericImplCopyWith<_$SdkError_GenericImpl> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SdkError_NotStartedImplCopyWith<$Res> {
+  factory _$$SdkError_NotStartedImplCopyWith(
+          _$SdkError_NotStartedImpl value, $Res Function(_$SdkError_NotStartedImpl) then) =
+      __$$SdkError_NotStartedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SdkError_NotStartedImplCopyWithImpl<$Res>
+    extends _$SdkErrorCopyWithImpl<$Res, _$SdkError_NotStartedImpl>
+    implements _$$SdkError_NotStartedImplCopyWith<$Res> {
+  __$$SdkError_NotStartedImplCopyWithImpl(
+      _$SdkError_NotStartedImpl _value, $Res Function(_$SdkError_NotStartedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SdkError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SdkError_NotStartedImpl extends SdkError_NotStarted {
+  const _$SdkError_NotStartedImpl() : super._();
+
+  @override
+  String toString() {
+    return 'SdkError.notStarted()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$SdkError_NotStartedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+}
+
+abstract class SdkError_NotStarted extends SdkError {
+  const factory SdkError_NotStarted() = _$SdkError_NotStartedImpl;
+  const SdkError_NotStarted._() : super._();
+}
+
+/// @nodoc
+abstract class _$$SdkError_ServiceConnectivityImplCopyWith<$Res> {
+  factory _$$SdkError_ServiceConnectivityImplCopyWith(
+          _$SdkError_ServiceConnectivityImpl value, $Res Function(_$SdkError_ServiceConnectivityImpl) then) =
+      __$$SdkError_ServiceConnectivityImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String err});
+}
+
+/// @nodoc
+class __$$SdkError_ServiceConnectivityImplCopyWithImpl<$Res>
+    extends _$SdkErrorCopyWithImpl<$Res, _$SdkError_ServiceConnectivityImpl>
+    implements _$$SdkError_ServiceConnectivityImplCopyWith<$Res> {
+  __$$SdkError_ServiceConnectivityImplCopyWithImpl(
+      _$SdkError_ServiceConnectivityImpl _value, $Res Function(_$SdkError_ServiceConnectivityImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SdkError
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? err = null,
+  }) {
+    return _then(_$SdkError_ServiceConnectivityImpl(
+      err: null == err
+          ? _value.err
+          : err // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SdkError_ServiceConnectivityImpl extends SdkError_ServiceConnectivity {
+  const _$SdkError_ServiceConnectivityImpl({required this.err}) : super._();
+
+  @override
+  final String err;
+
+  @override
+  String toString() {
+    return 'SdkError.serviceConnectivity(err: $err)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SdkError_ServiceConnectivityImpl &&
+            (identical(other.err, err) || other.err == err));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, err);
+
+  /// Create a copy of SdkError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SdkError_ServiceConnectivityImplCopyWith<_$SdkError_ServiceConnectivityImpl> get copyWith =>
+      __$$SdkError_ServiceConnectivityImplCopyWithImpl<_$SdkError_ServiceConnectivityImpl>(this, _$identity);
+}
+
+abstract class SdkError_ServiceConnectivity extends SdkError {
+  const factory SdkError_ServiceConnectivity({required final String err}) =
+      _$SdkError_ServiceConnectivityImpl;
+  const SdkError_ServiceConnectivity._() : super._();
+
+  String get err;
+
+  /// Create a copy of SdkError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SdkError_ServiceConnectivityImplCopyWith<_$SdkError_ServiceConnectivityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

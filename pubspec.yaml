@@ -1,6 +1,6 @@
 name: breez_liquid
 description: Dart bindings for the Breez Liquid SDK
-version: 0.2.2-dev15
+version: 0.2.2-dev16
 homepage: https://breez.technology
 repository: https://github.com/breez/breez-sdk-liquid-dart
 publish_to: 'none'
@@ -24,6 +24,6 @@ dev_dependencies:
   test: ^1.25.5
 dependencies:
   ffi: ^2.1.2
-  flutter_rust_bridge: 2.2.0
+  flutter_rust_bridge: 2.3.0
   freezed_annotation: ^2.4.1
   meta: ^1.12.0 # meta is pinned to version 1.12.0 by integration_test from the flutter SDK.

@@ -1545,7 +1545,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   Config dco_decode_config(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 8) throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
+    if (arr.length != 9) throw Exception('unexpected arr length: expect 9 but see ${arr.length}');
     return Config(
       liquidElectrumUrl: dco_decode_String(arr[0]),
       bitcoinElectrumUrl: dco_decode_String(arr[1]),
@@ -1555,6 +1555,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       paymentTimeoutSec: dco_decode_u_64(arr[5]),
       zeroConfMinFeeRateMsat: dco_decode_u_32(arr[6]),
       zeroConfMaxAmountSat: dco_decode_opt_box_autoadd_u_64(arr[7]),
+      breezApiKey: dco_decode_opt_String(arr[8]),
     );
   }
 
@@ -2392,7 +2393,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return PreparePayOnchainRequest(
       amount: dco_decode_pay_onchain_amount(arr[0]),
-      satPerVbyte: dco_decode_opt_box_autoadd_u_32(arr[1]),
+      feeRateMsatPerVbyte: dco_decode_opt_box_autoadd_u_32(arr[1]),
     );
   }
 
@@ -2439,7 +2440,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return PrepareRefundRequest(
       swapAddress: dco_decode_String(arr[0]),
       refundAddress: dco_decode_String(arr[1]),
-      satPerVbyte: dco_decode_u_32(arr[2]),
+      feeRateMsatPerVbyte: dco_decode_u_32(arr[2]),
     );
   }
 
@@ -2532,7 +2533,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return RefundRequest(
       swapAddress: dco_decode_String(arr[0]),
       refundAddress: dco_decode_String(arr[1]),
-      satPerVbyte: dco_decode_u_32(arr[2]),
+      feeRateMsatPerVbyte: dco_decode_u_32(arr[2]),
     );
   }
 
@@ -3192,6 +3193,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var var_paymentTimeoutSec = sse_decode_u_64(deserializer);
     var var_zeroConfMinFeeRateMsat = sse_decode_u_32(deserializer);
     var var_zeroConfMaxAmountSat = sse_decode_opt_box_autoadd_u_64(deserializer);
+    var var_breezApiKey = sse_decode_opt_String(deserializer);
     return Config(
         liquidElectrumUrl: var_liquidElectrumUrl,
         bitcoinElectrumUrl: var_bitcoinElectrumUrl,
@@ -3200,7 +3202,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         network: var_network,
         paymentTimeoutSec: var_paymentTimeoutSec,
         zeroConfMinFeeRateMsat: var_zeroConfMinFeeRateMsat,
-        zeroConfMaxAmountSat: var_zeroConfMaxAmountSat);
+        zeroConfMaxAmountSat: var_zeroConfMaxAmountSat,
+        breezApiKey: var_breezApiKey);
   }
 
   @protected
@@ -4094,8 +4097,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   PreparePayOnchainRequest sse_decode_prepare_pay_onchain_request(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_amount = sse_decode_pay_onchain_amount(deserializer);
-    var var_satPerVbyte = sse_decode_opt_box_autoadd_u_32(deserializer);
-    return PreparePayOnchainRequest(amount: var_amount, satPerVbyte: var_satPerVbyte);
+    var var_feeRateMsatPerVbyte = sse_decode_opt_box_autoadd_u_32(deserializer);
+    return PreparePayOnchainRequest(amount: var_amount, feeRateMsatPerVbyte: var_feeRateMsatPerVbyte);
   }
 
   @protected
@@ -4133,9 +4136,11 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_swapAddress = sse_decode_String(deserializer);
     var var_refundAddress = sse_decode_String(deserializer);
-    var var_satPerVbyte = sse_decode_u_32(deserializer);
+    var var_feeRateMsatPerVbyte = sse_decode_u_32(deserializer);
     return PrepareRefundRequest(
-        swapAddress: var_swapAddress, refundAddress: var_refundAddress, satPerVbyte: var_satPerVbyte);
+        swapAddress: var_swapAddress,
+        refundAddress: var_refundAddress,
+        feeRateMsatPerVbyte: var_feeRateMsatPerVbyte);
   }
 
   @protected
@@ -4211,9 +4216,11 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_swapAddress = sse_decode_String(deserializer);
     var var_refundAddress = sse_decode_String(deserializer);
-    var var_satPerVbyte = sse_decode_u_32(deserializer);
+    var var_feeRateMsatPerVbyte = sse_decode_u_32(deserializer);
     return RefundRequest(
-        swapAddress: var_swapAddress, refundAddress: var_refundAddress, satPerVbyte: var_satPerVbyte);
+        swapAddress: var_swapAddress,
+        refundAddress: var_refundAddress,
+        feeRateMsatPerVbyte: var_feeRateMsatPerVbyte);
   }
 
   @protected
@@ -4940,6 +4947,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_u_64(self.paymentTimeoutSec, serializer);
     sse_encode_u_32(self.zeroConfMinFeeRateMsat, serializer);
     sse_encode_opt_box_autoadd_u_64(self.zeroConfMaxAmountSat, serializer);
+    sse_encode_opt_String(self.breezApiKey, serializer);
   }
 
   @protected
@@ -5690,7 +5698,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_prepare_pay_onchain_request(PreparePayOnchainRequest self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_pay_onchain_amount(self.amount, serializer);
-    sse_encode_opt_box_autoadd_u_32(self.satPerVbyte, serializer);
+    sse_encode_opt_box_autoadd_u_32(self.feeRateMsatPerVbyte, serializer);
   }
 
   @protected
@@ -5721,7 +5729,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.swapAddress, serializer);
     sse_encode_String(self.refundAddress, serializer);
-    sse_encode_u_32(self.satPerVbyte, serializer);
+    sse_encode_u_32(self.feeRateMsatPerVbyte, serializer);
   }
 
   @protected
@@ -5782,7 +5790,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.swapAddress, serializer);
     sse_encode_String(self.refundAddress, serializer);
-    sse_encode_u_32(self.satPerVbyte, serializer);
+    sse_encode_u_32(self.feeRateMsatPerVbyte, serializer);
   }
 
   @protected

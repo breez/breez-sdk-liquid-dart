@@ -1813,6 +1813,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
     wireObj.payment_timeout_sec = cst_encode_u_64(apiObj.paymentTimeoutSec);
     wireObj.zero_conf_min_fee_rate_msat = cst_encode_u_32(apiObj.zeroConfMinFeeRateMsat);
     wireObj.zero_conf_max_amount_sat = cst_encode_opt_box_autoadd_u_64(apiObj.zeroConfMaxAmountSat);
+    wireObj.breez_api_key = cst_encode_opt_String(apiObj.breezApiKey);
   }
 
   @protected
@@ -2461,7 +2462,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void cst_api_fill_to_wire_prepare_pay_onchain_request(
       PreparePayOnchainRequest apiObj, wire_cst_prepare_pay_onchain_request wireObj) {
     cst_api_fill_to_wire_pay_onchain_amount(apiObj.amount, wireObj.amount);
-    wireObj.sat_per_vbyte = cst_encode_opt_box_autoadd_u_32(apiObj.satPerVbyte);
+    wireObj.fee_rate_msat_per_vbyte = cst_encode_opt_box_autoadd_u_32(apiObj.feeRateMsatPerVbyte);
   }
 
   @protected
@@ -2492,7 +2493,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
       PrepareRefundRequest apiObj, wire_cst_prepare_refund_request wireObj) {
     wireObj.swap_address = cst_encode_String(apiObj.swapAddress);
     wireObj.refund_address = cst_encode_String(apiObj.refundAddress);
-    wireObj.sat_per_vbyte = cst_encode_u_32(apiObj.satPerVbyte);
+    wireObj.fee_rate_msat_per_vbyte = cst_encode_u_32(apiObj.feeRateMsatPerVbyte);
   }
 
   @protected
@@ -2550,7 +2551,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void cst_api_fill_to_wire_refund_request(RefundRequest apiObj, wire_cst_refund_request wireObj) {
     wireObj.swap_address = cst_encode_String(apiObj.swapAddress);
     wireObj.refund_address = cst_encode_String(apiObj.refundAddress);
-    wireObj.sat_per_vbyte = cst_encode_u_32(apiObj.satPerVbyte);
+    wireObj.fee_rate_msat_per_vbyte = cst_encode_u_32(apiObj.feeRateMsatPerVbyte);
   }
 
   @protected
@@ -4776,7 +4777,7 @@ final class wire_cst_pay_onchain_amount extends ffi.Struct {
 final class wire_cst_prepare_pay_onchain_request extends ffi.Struct {
   external wire_cst_pay_onchain_amount amount;
 
-  external ffi.Pointer<ffi.Uint32> sat_per_vbyte;
+  external ffi.Pointer<ffi.Uint32> fee_rate_msat_per_vbyte;
 }
 
 final class wire_cst_prepare_receive_request extends ffi.Struct {
@@ -4792,7 +4793,7 @@ final class wire_cst_prepare_refund_request extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> refund_address;
 
   @ffi.Uint32()
-  external int sat_per_vbyte;
+  external int fee_rate_msat_per_vbyte;
 }
 
 final class wire_cst_prepare_send_request extends ffi.Struct {
@@ -4825,7 +4826,7 @@ final class wire_cst_refund_request extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> refund_address;
 
   @ffi.Uint32()
-  external int sat_per_vbyte;
+  external int fee_rate_msat_per_vbyte;
 }
 
 final class wire_cst_restore_request extends ffi.Struct {
@@ -5086,6 +5087,8 @@ final class wire_cst_config extends ffi.Struct {
   external int zero_conf_min_fee_rate_msat;
 
   external ffi.Pointer<ffi.Uint64> zero_conf_max_amount_sat;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> breez_api_key;
 }
 
 final class wire_cst_connect_request extends ffi.Struct {

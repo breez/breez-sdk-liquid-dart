@@ -170,7 +170,7 @@ abstract class _$$ListPaymentDetails_LiquidImplCopyWith<$Res> {
           _$ListPaymentDetails_LiquidImpl value, $Res Function(_$ListPaymentDetails_LiquidImpl) then) =
       __$$ListPaymentDetails_LiquidImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String destination});
+  $Res call({String? assetId, String? destination});
 }
 
 /// @nodoc
@@ -186,13 +186,18 @@ class __$$ListPaymentDetails_LiquidImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? destination = null,
+    Object? assetId = freezed,
+    Object? destination = freezed,
   }) {
     return _then(_$ListPaymentDetails_LiquidImpl(
-      destination: null == destination
+      assetId: freezed == assetId
+          ? _value.assetId
+          : assetId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destination: freezed == destination
           ? _value.destination
           : destination // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -200,14 +205,19 @@ class __$$ListPaymentDetails_LiquidImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ListPaymentDetails_LiquidImpl extends ListPaymentDetails_Liquid {
-  const _$ListPaymentDetails_LiquidImpl({required this.destination}) : super._();
+  const _$ListPaymentDetails_LiquidImpl({this.assetId, this.destination}) : super._();
 
+  /// Optional asset id
   @override
-  final String destination;
+  final String? assetId;
+
+  /// Optional BIP21 URI or address
+  @override
+  final String? destination;
 
   @override
   String toString() {
-    return 'ListPaymentDetails.liquid(destination: $destination)';
+    return 'ListPaymentDetails.liquid(assetId: $assetId, destination: $destination)';
   }
 
   @override
@@ -215,11 +225,12 @@ class _$ListPaymentDetails_LiquidImpl extends ListPaymentDetails_Liquid {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ListPaymentDetails_LiquidImpl &&
+            (identical(other.assetId, assetId) || other.assetId == assetId) &&
             (identical(other.destination, destination) || other.destination == destination));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, destination);
+  int get hashCode => Object.hash(runtimeType, assetId, destination);
 
   /// Create a copy of ListPaymentDetails
   /// with the given fields replaced by the non-null parameter values.
@@ -231,11 +242,15 @@ class _$ListPaymentDetails_LiquidImpl extends ListPaymentDetails_Liquid {
 }
 
 abstract class ListPaymentDetails_Liquid extends ListPaymentDetails {
-  const factory ListPaymentDetails_Liquid({required final String destination}) =
+  const factory ListPaymentDetails_Liquid({final String? assetId, final String? destination}) =
       _$ListPaymentDetails_LiquidImpl;
   const ListPaymentDetails_Liquid._() : super._();
 
-  String get destination;
+  /// Optional asset id
+  String? get assetId;
+
+  /// Optional BIP21 URI or address
+  String? get destination;
 
   /// Create a copy of ListPaymentDetails
   /// with the given fields replaced by the non-null parameter values.
@@ -250,7 +265,7 @@ abstract class _$$ListPaymentDetails_BitcoinImplCopyWith<$Res> {
           _$ListPaymentDetails_BitcoinImpl value, $Res Function(_$ListPaymentDetails_BitcoinImpl) then) =
       __$$ListPaymentDetails_BitcoinImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String address});
+  $Res call({String? address});
 }
 
 /// @nodoc
@@ -266,13 +281,13 @@ class __$$ListPaymentDetails_BitcoinImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? address = null,
+    Object? address = freezed,
   }) {
     return _then(_$ListPaymentDetails_BitcoinImpl(
-      address: null == address
+      address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -280,10 +295,11 @@ class __$$ListPaymentDetails_BitcoinImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ListPaymentDetails_BitcoinImpl extends ListPaymentDetails_Bitcoin {
-  const _$ListPaymentDetails_BitcoinImpl({required this.address}) : super._();
+  const _$ListPaymentDetails_BitcoinImpl({this.address}) : super._();
 
+  /// Optional address
   @override
-  final String address;
+  final String? address;
 
   @override
   String toString() {
@@ -311,11 +327,11 @@ class _$ListPaymentDetails_BitcoinImpl extends ListPaymentDetails_Bitcoin {
 }
 
 abstract class ListPaymentDetails_Bitcoin extends ListPaymentDetails {
-  const factory ListPaymentDetails_Bitcoin({required final String address}) =
-      _$ListPaymentDetails_BitcoinImpl;
+  const factory ListPaymentDetails_Bitcoin({final String? address}) = _$ListPaymentDetails_BitcoinImpl;
   const ListPaymentDetails_Bitcoin._() : super._();
 
-  String get address;
+  /// Optional address
+  String? get address;
 
   /// Create a copy of ListPaymentDetails
   /// with the given fields replaced by the non-null parameter values.
@@ -616,20 +632,20 @@ class _$PayAmountCopyWithImpl<$Res, $Val extends PayAmount> implements $PayAmoun
 }
 
 /// @nodoc
-abstract class _$$PayAmount_ReceiverImplCopyWith<$Res> {
-  factory _$$PayAmount_ReceiverImplCopyWith(
-          _$PayAmount_ReceiverImpl value, $Res Function(_$PayAmount_ReceiverImpl) then) =
-      __$$PayAmount_ReceiverImplCopyWithImpl<$Res>;
+abstract class _$$PayAmount_BitcoinImplCopyWith<$Res> {
+  factory _$$PayAmount_BitcoinImplCopyWith(
+          _$PayAmount_BitcoinImpl value, $Res Function(_$PayAmount_BitcoinImpl) then) =
+      __$$PayAmount_BitcoinImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({BigInt amountSat});
+  $Res call({BigInt receiverAmountSat});
 }
 
 /// @nodoc
-class __$$PayAmount_ReceiverImplCopyWithImpl<$Res>
-    extends _$PayAmountCopyWithImpl<$Res, _$PayAmount_ReceiverImpl>
-    implements _$$PayAmount_ReceiverImplCopyWith<$Res> {
-  __$$PayAmount_ReceiverImplCopyWithImpl(
-      _$PayAmount_ReceiverImpl _value, $Res Function(_$PayAmount_ReceiverImpl) _then)
+class __$$PayAmount_BitcoinImplCopyWithImpl<$Res>
+    extends _$PayAmountCopyWithImpl<$Res, _$PayAmount_BitcoinImpl>
+    implements _$$PayAmount_BitcoinImplCopyWith<$Res> {
+  __$$PayAmount_BitcoinImplCopyWithImpl(
+      _$PayAmount_BitcoinImpl _value, $Res Function(_$PayAmount_BitcoinImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of PayAmount
@@ -637,12 +653,12 @@ class __$$PayAmount_ReceiverImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? amountSat = null,
+    Object? receiverAmountSat = null,
   }) {
-    return _then(_$PayAmount_ReceiverImpl(
-      amountSat: null == amountSat
-          ? _value.amountSat
-          : amountSat // ignore: cast_nullable_to_non_nullable
+    return _then(_$PayAmount_BitcoinImpl(
+      receiverAmountSat: null == receiverAmountSat
+          ? _value.receiverAmountSat
+          : receiverAmountSat // ignore: cast_nullable_to_non_nullable
               as BigInt,
     ));
   }
@@ -650,48 +666,136 @@ class __$$PayAmount_ReceiverImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$PayAmount_ReceiverImpl extends PayAmount_Receiver {
-  const _$PayAmount_ReceiverImpl({required this.amountSat}) : super._();
+class _$PayAmount_BitcoinImpl extends PayAmount_Bitcoin {
+  const _$PayAmount_BitcoinImpl({required this.receiverAmountSat}) : super._();
 
   @override
-  final BigInt amountSat;
+  final BigInt receiverAmountSat;
 
   @override
   String toString() {
-    return 'PayAmount.receiver(amountSat: $amountSat)';
+    return 'PayAmount.bitcoin(receiverAmountSat: $receiverAmountSat)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PayAmount_ReceiverImpl &&
-            (identical(other.amountSat, amountSat) || other.amountSat == amountSat));
+            other is _$PayAmount_BitcoinImpl &&
+            (identical(other.receiverAmountSat, receiverAmountSat) ||
+                other.receiverAmountSat == receiverAmountSat));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, amountSat);
+  int get hashCode => Object.hash(runtimeType, receiverAmountSat);
 
   /// Create a copy of PayAmount
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$PayAmount_ReceiverImplCopyWith<_$PayAmount_ReceiverImpl> get copyWith =>
-      __$$PayAmount_ReceiverImplCopyWithImpl<_$PayAmount_ReceiverImpl>(this, _$identity);
+  _$$PayAmount_BitcoinImplCopyWith<_$PayAmount_BitcoinImpl> get copyWith =>
+      __$$PayAmount_BitcoinImplCopyWithImpl<_$PayAmount_BitcoinImpl>(this, _$identity);
 }
 
-abstract class PayAmount_Receiver extends PayAmount {
-  const factory PayAmount_Receiver({required final BigInt amountSat}) = _$PayAmount_ReceiverImpl;
-  const PayAmount_Receiver._() : super._();
+abstract class PayAmount_Bitcoin extends PayAmount {
+  const factory PayAmount_Bitcoin({required final BigInt receiverAmountSat}) = _$PayAmount_BitcoinImpl;
+  const PayAmount_Bitcoin._() : super._();
 
-  BigInt get amountSat;
+  BigInt get receiverAmountSat;
 
   /// Create a copy of PayAmount
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PayAmount_ReceiverImplCopyWith<_$PayAmount_ReceiverImpl> get copyWith =>
+  _$$PayAmount_BitcoinImplCopyWith<_$PayAmount_BitcoinImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PayAmount_AssetImplCopyWith<$Res> {
+  factory _$$PayAmount_AssetImplCopyWith(
+          _$PayAmount_AssetImpl value, $Res Function(_$PayAmount_AssetImpl) then) =
+      __$$PayAmount_AssetImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String assetId, double receiverAmount});
+}
+
+/// @nodoc
+class __$$PayAmount_AssetImplCopyWithImpl<$Res> extends _$PayAmountCopyWithImpl<$Res, _$PayAmount_AssetImpl>
+    implements _$$PayAmount_AssetImplCopyWith<$Res> {
+  __$$PayAmount_AssetImplCopyWithImpl(
+      _$PayAmount_AssetImpl _value, $Res Function(_$PayAmount_AssetImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PayAmount
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? assetId = null,
+    Object? receiverAmount = null,
+  }) {
+    return _then(_$PayAmount_AssetImpl(
+      assetId: null == assetId
+          ? _value.assetId
+          : assetId // ignore: cast_nullable_to_non_nullable
+              as String,
+      receiverAmount: null == receiverAmount
+          ? _value.receiverAmount
+          : receiverAmount // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PayAmount_AssetImpl extends PayAmount_Asset {
+  const _$PayAmount_AssetImpl({required this.assetId, required this.receiverAmount}) : super._();
+
+  @override
+  final String assetId;
+  @override
+  final double receiverAmount;
+
+  @override
+  String toString() {
+    return 'PayAmount.asset(assetId: $assetId, receiverAmount: $receiverAmount)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PayAmount_AssetImpl &&
+            (identical(other.assetId, assetId) || other.assetId == assetId) &&
+            (identical(other.receiverAmount, receiverAmount) || other.receiverAmount == receiverAmount));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, assetId, receiverAmount);
+
+  /// Create a copy of PayAmount
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PayAmount_AssetImplCopyWith<_$PayAmount_AssetImpl> get copyWith =>
+      __$$PayAmount_AssetImplCopyWithImpl<_$PayAmount_AssetImpl>(this, _$identity);
+}
+
+abstract class PayAmount_Asset extends PayAmount {
+  const factory PayAmount_Asset({required final String assetId, required final double receiverAmount}) =
+      _$PayAmount_AssetImpl;
+  const PayAmount_Asset._() : super._();
+
+  String get assetId;
+  double get receiverAmount;
+
+  /// Create a copy of PayAmount
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PayAmount_AssetImplCopyWith<_$PayAmount_AssetImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -793,9 +897,10 @@ abstract class _$$PaymentDetails_LightningImplCopyWith<$Res> implements $Payment
       String description,
       int liquidExpirationBlockheight,
       String? preimage,
-      String? bolt11,
+      String? invoice,
       String? bolt12Offer,
       String? paymentHash,
+      String? destinationPubkey,
       LnUrlInfo? lnurlInfo,
       String? refundTxId,
       BigInt? refundTxAmountSat});
@@ -818,9 +923,10 @@ class __$$PaymentDetails_LightningImplCopyWithImpl<$Res>
     Object? description = null,
     Object? liquidExpirationBlockheight = null,
     Object? preimage = freezed,
-    Object? bolt11 = freezed,
+    Object? invoice = freezed,
     Object? bolt12Offer = freezed,
     Object? paymentHash = freezed,
+    Object? destinationPubkey = freezed,
     Object? lnurlInfo = freezed,
     Object? refundTxId = freezed,
     Object? refundTxAmountSat = freezed,
@@ -842,9 +948,9 @@ class __$$PaymentDetails_LightningImplCopyWithImpl<$Res>
           ? _value.preimage
           : preimage // ignore: cast_nullable_to_non_nullable
               as String?,
-      bolt11: freezed == bolt11
-          ? _value.bolt11
-          : bolt11 // ignore: cast_nullable_to_non_nullable
+      invoice: freezed == invoice
+          ? _value.invoice
+          : invoice // ignore: cast_nullable_to_non_nullable
               as String?,
       bolt12Offer: freezed == bolt12Offer
           ? _value.bolt12Offer
@@ -853,6 +959,10 @@ class __$$PaymentDetails_LightningImplCopyWithImpl<$Res>
       paymentHash: freezed == paymentHash
           ? _value.paymentHash
           : paymentHash // ignore: cast_nullable_to_non_nullable
+              as String?,
+      destinationPubkey: freezed == destinationPubkey
+          ? _value.destinationPubkey
+          : destinationPubkey // ignore: cast_nullable_to_non_nullable
               as String?,
       lnurlInfo: freezed == lnurlInfo
           ? _value.lnurlInfo
@@ -878,9 +988,10 @@ class _$PaymentDetails_LightningImpl extends PaymentDetails_Lightning {
       required this.description,
       required this.liquidExpirationBlockheight,
       this.preimage,
-      this.bolt11,
+      this.invoice,
       this.bolt12Offer,
       this.paymentHash,
+      this.destinationPubkey,
       this.lnurlInfo,
       this.refundTxId,
       this.refundTxAmountSat})
@@ -901,17 +1012,21 @@ class _$PaymentDetails_LightningImpl extends PaymentDetails_Lightning {
   @override
   final String? preimage;
 
-  /// Represents the Bolt11 invoice associated with a payment
+  /// Represents the Bolt11/Bolt12 invoice associated with a payment
   /// In the case of a Send payment, this is the invoice paid by the swapper
   /// In the case of a Receive payment, this is the invoice paid by the user
   @override
-  final String? bolt11;
+  final String? invoice;
   @override
   final String? bolt12Offer;
 
   /// The payment hash of the invoice
   @override
   final String? paymentHash;
+
+  /// The invoice destination/payee pubkey
+  @override
+  final String? destinationPubkey;
 
   /// The payment LNURL info
   @override
@@ -927,7 +1042,7 @@ class _$PaymentDetails_LightningImpl extends PaymentDetails_Lightning {
 
   @override
   String toString() {
-    return 'PaymentDetails.lightning(swapId: $swapId, description: $description, liquidExpirationBlockheight: $liquidExpirationBlockheight, preimage: $preimage, bolt11: $bolt11, bolt12Offer: $bolt12Offer, paymentHash: $paymentHash, lnurlInfo: $lnurlInfo, refundTxId: $refundTxId, refundTxAmountSat: $refundTxAmountSat)';
+    return 'PaymentDetails.lightning(swapId: $swapId, description: $description, liquidExpirationBlockheight: $liquidExpirationBlockheight, preimage: $preimage, invoice: $invoice, bolt12Offer: $bolt12Offer, paymentHash: $paymentHash, destinationPubkey: $destinationPubkey, lnurlInfo: $lnurlInfo, refundTxId: $refundTxId, refundTxAmountSat: $refundTxAmountSat)';
   }
 
   @override
@@ -940,9 +1055,11 @@ class _$PaymentDetails_LightningImpl extends PaymentDetails_Lightning {
             (identical(other.liquidExpirationBlockheight, liquidExpirationBlockheight) ||
                 other.liquidExpirationBlockheight == liquidExpirationBlockheight) &&
             (identical(other.preimage, preimage) || other.preimage == preimage) &&
-            (identical(other.bolt11, bolt11) || other.bolt11 == bolt11) &&
+            (identical(other.invoice, invoice) || other.invoice == invoice) &&
             (identical(other.bolt12Offer, bolt12Offer) || other.bolt12Offer == bolt12Offer) &&
             (identical(other.paymentHash, paymentHash) || other.paymentHash == paymentHash) &&
+            (identical(other.destinationPubkey, destinationPubkey) ||
+                other.destinationPubkey == destinationPubkey) &&
             (identical(other.lnurlInfo, lnurlInfo) || other.lnurlInfo == lnurlInfo) &&
             (identical(other.refundTxId, refundTxId) || other.refundTxId == refundTxId) &&
             (identical(other.refundTxAmountSat, refundTxAmountSat) ||
@@ -951,7 +1068,7 @@ class _$PaymentDetails_LightningImpl extends PaymentDetails_Lightning {
 
   @override
   int get hashCode => Object.hash(runtimeType, swapId, description, liquidExpirationBlockheight, preimage,
-      bolt11, bolt12Offer, paymentHash, lnurlInfo, refundTxId, refundTxAmountSat);
+      invoice, bolt12Offer, paymentHash, destinationPubkey, lnurlInfo, refundTxId, refundTxAmountSat);
 
   /// Create a copy of PaymentDetails
   /// with the given fields replaced by the non-null parameter values.
@@ -968,9 +1085,10 @@ abstract class PaymentDetails_Lightning extends PaymentDetails {
       required final String description,
       required final int liquidExpirationBlockheight,
       final String? preimage,
-      final String? bolt11,
+      final String? invoice,
       final String? bolt12Offer,
       final String? paymentHash,
+      final String? destinationPubkey,
       final LnUrlInfo? lnurlInfo,
       final String? refundTxId,
       final BigInt? refundTxAmountSat}) = _$PaymentDetails_LightningImpl;
@@ -988,14 +1106,17 @@ abstract class PaymentDetails_Lightning extends PaymentDetails {
   /// The preimage of the paid invoice (proof of payment).
   String? get preimage;
 
-  /// Represents the Bolt11 invoice associated with a payment
+  /// Represents the Bolt11/Bolt12 invoice associated with a payment
   /// In the case of a Send payment, this is the invoice paid by the swapper
   /// In the case of a Receive payment, this is the invoice paid by the user
-  String? get bolt11;
+  String? get invoice;
   String? get bolt12Offer;
 
   /// The payment hash of the invoice
   String? get paymentHash;
+
+  /// The invoice destination/payee pubkey
+  String? get destinationPubkey;
 
   /// The payment LNURL info
   LnUrlInfo? get lnurlInfo;
@@ -1021,7 +1142,7 @@ abstract class _$$PaymentDetails_LiquidImplCopyWith<$Res> implements $PaymentDet
       __$$PaymentDetails_LiquidImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String destination, String description});
+  $Res call({String destination, String description, String assetId, AssetInfo? assetInfo});
 }
 
 /// @nodoc
@@ -1039,6 +1160,8 @@ class __$$PaymentDetails_LiquidImplCopyWithImpl<$Res>
   $Res call({
     Object? destination = null,
     Object? description = null,
+    Object? assetId = null,
+    Object? assetInfo = freezed,
   }) {
     return _then(_$PaymentDetails_LiquidImpl(
       destination: null == destination
@@ -1049,6 +1172,14 @@ class __$$PaymentDetails_LiquidImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      assetId: null == assetId
+          ? _value.assetId
+          : assetId // ignore: cast_nullable_to_non_nullable
+              as String,
+      assetInfo: freezed == assetInfo
+          ? _value.assetInfo
+          : assetInfo // ignore: cast_nullable_to_non_nullable
+              as AssetInfo?,
     ));
   }
 }
@@ -1056,7 +1187,9 @@ class __$$PaymentDetails_LiquidImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$PaymentDetails_LiquidImpl extends PaymentDetails_Liquid {
-  const _$PaymentDetails_LiquidImpl({required this.destination, required this.description}) : super._();
+  const _$PaymentDetails_LiquidImpl(
+      {required this.destination, required this.description, required this.assetId, this.assetInfo})
+      : super._();
 
   /// Represents either a Liquid BIP21 URI or pure address
   @override
@@ -1066,9 +1199,17 @@ class _$PaymentDetails_LiquidImpl extends PaymentDetails_Liquid {
   @override
   final String description;
 
+  /// The asset id
+  @override
+  final String assetId;
+
+  /// The asset info derived from the [AssetMetadata]
+  @override
+  final AssetInfo? assetInfo;
+
   @override
   String toString() {
-    return 'PaymentDetails.liquid(destination: $destination, description: $description)';
+    return 'PaymentDetails.liquid(destination: $destination, description: $description, assetId: $assetId, assetInfo: $assetInfo)';
   }
 
   @override
@@ -1077,11 +1218,13 @@ class _$PaymentDetails_LiquidImpl extends PaymentDetails_Liquid {
         (other.runtimeType == runtimeType &&
             other is _$PaymentDetails_LiquidImpl &&
             (identical(other.destination, destination) || other.destination == destination) &&
-            (identical(other.description, description) || other.description == description));
+            (identical(other.description, description) || other.description == description) &&
+            (identical(other.assetId, assetId) || other.assetId == assetId) &&
+            (identical(other.assetInfo, assetInfo) || other.assetInfo == assetInfo));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, destination, description);
+  int get hashCode => Object.hash(runtimeType, destination, description, assetId, assetInfo);
 
   /// Create a copy of PaymentDetails
   /// with the given fields replaced by the non-null parameter values.
@@ -1094,7 +1237,10 @@ class _$PaymentDetails_LiquidImpl extends PaymentDetails_Liquid {
 
 abstract class PaymentDetails_Liquid extends PaymentDetails {
   const factory PaymentDetails_Liquid(
-      {required final String destination, required final String description}) = _$PaymentDetails_LiquidImpl;
+      {required final String destination,
+      required final String description,
+      required final String assetId,
+      final AssetInfo? assetInfo}) = _$PaymentDetails_LiquidImpl;
   const PaymentDetails_Liquid._() : super._();
 
   /// Represents either a Liquid BIP21 URI or pure address
@@ -1103,6 +1249,12 @@ abstract class PaymentDetails_Liquid extends PaymentDetails {
   /// Represents the BIP21 `message` field
   @override
   String get description;
+
+  /// The asset id
+  String get assetId;
+
+  /// The asset info derived from the [AssetMetadata]
+  AssetInfo? get assetInfo;
 
   /// Create a copy of PaymentDetails
   /// with the given fields replaced by the non-null parameter values.
@@ -1122,6 +1274,7 @@ abstract class _$$PaymentDetails_BitcoinImplCopyWith<$Res> implements $PaymentDe
   $Res call(
       {String swapId,
       String description,
+      bool autoAcceptedFees,
       int? liquidExpirationBlockheight,
       int? bitcoinExpirationBlockheight,
       String? refundTxId,
@@ -1143,6 +1296,7 @@ class __$$PaymentDetails_BitcoinImplCopyWithImpl<$Res>
   $Res call({
     Object? swapId = null,
     Object? description = null,
+    Object? autoAcceptedFees = null,
     Object? liquidExpirationBlockheight = freezed,
     Object? bitcoinExpirationBlockheight = freezed,
     Object? refundTxId = freezed,
@@ -1157,6 +1311,10 @@ class __$$PaymentDetails_BitcoinImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      autoAcceptedFees: null == autoAcceptedFees
+          ? _value.autoAcceptedFees
+          : autoAcceptedFees // ignore: cast_nullable_to_non_nullable
+              as bool,
       liquidExpirationBlockheight: freezed == liquidExpirationBlockheight
           ? _value.liquidExpirationBlockheight
           : liquidExpirationBlockheight // ignore: cast_nullable_to_non_nullable
@@ -1183,6 +1341,7 @@ class _$PaymentDetails_BitcoinImpl extends PaymentDetails_Bitcoin {
   const _$PaymentDetails_BitcoinImpl(
       {required this.swapId,
       required this.description,
+      required this.autoAcceptedFees,
       this.liquidExpirationBlockheight,
       this.bitcoinExpirationBlockheight,
       this.refundTxId,
@@ -1195,6 +1354,12 @@ class _$PaymentDetails_BitcoinImpl extends PaymentDetails_Bitcoin {
   /// Represents the invoice description
   @override
   final String description;
+
+  /// For an amountless receive swap, this indicates if fees were automatically accepted.
+  /// Fees are auto accepted when the swapper proposes fees that are within the initial
+  /// estimate, plus the `onchain_fee_rate_leeway_sat_per_vbyte` set in the [Config], if any.
+  @override
+  final bool autoAcceptedFees;
 
   /// The height of the Liquid block at which the swap will no longer be valid
   /// It should always be populated in case of an outgoing chain swap
@@ -1216,7 +1381,7 @@ class _$PaymentDetails_BitcoinImpl extends PaymentDetails_Bitcoin {
 
   @override
   String toString() {
-    return 'PaymentDetails.bitcoin(swapId: $swapId, description: $description, liquidExpirationBlockheight: $liquidExpirationBlockheight, bitcoinExpirationBlockheight: $bitcoinExpirationBlockheight, refundTxId: $refundTxId, refundTxAmountSat: $refundTxAmountSat)';
+    return 'PaymentDetails.bitcoin(swapId: $swapId, description: $description, autoAcceptedFees: $autoAcceptedFees, liquidExpirationBlockheight: $liquidExpirationBlockheight, bitcoinExpirationBlockheight: $bitcoinExpirationBlockheight, refundTxId: $refundTxId, refundTxAmountSat: $refundTxAmountSat)';
   }
 
   @override
@@ -1226,6 +1391,8 @@ class _$PaymentDetails_BitcoinImpl extends PaymentDetails_Bitcoin {
             other is _$PaymentDetails_BitcoinImpl &&
             (identical(other.swapId, swapId) || other.swapId == swapId) &&
             (identical(other.description, description) || other.description == description) &&
+            (identical(other.autoAcceptedFees, autoAcceptedFees) ||
+                other.autoAcceptedFees == autoAcceptedFees) &&
             (identical(other.liquidExpirationBlockheight, liquidExpirationBlockheight) ||
                 other.liquidExpirationBlockheight == liquidExpirationBlockheight) &&
             (identical(other.bitcoinExpirationBlockheight, bitcoinExpirationBlockheight) ||
@@ -1236,8 +1403,8 @@ class _$PaymentDetails_BitcoinImpl extends PaymentDetails_Bitcoin {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, swapId, description, liquidExpirationBlockheight,
-      bitcoinExpirationBlockheight, refundTxId, refundTxAmountSat);
+  int get hashCode => Object.hash(runtimeType, swapId, description, autoAcceptedFees,
+      liquidExpirationBlockheight, bitcoinExpirationBlockheight, refundTxId, refundTxAmountSat);
 
   /// Create a copy of PaymentDetails
   /// with the given fields replaced by the non-null parameter values.
@@ -1252,6 +1419,7 @@ abstract class PaymentDetails_Bitcoin extends PaymentDetails {
   const factory PaymentDetails_Bitcoin(
       {required final String swapId,
       required final String description,
+      required final bool autoAcceptedFees,
       final int? liquidExpirationBlockheight,
       final int? bitcoinExpirationBlockheight,
       final String? refundTxId,
@@ -1263,6 +1431,11 @@ abstract class PaymentDetails_Bitcoin extends PaymentDetails {
   /// Represents the invoice description
   @override
   String get description;
+
+  /// For an amountless receive swap, this indicates if fees were automatically accepted.
+  /// Fees are auto accepted when the swapper proposes fees that are within the initial
+  /// estimate, plus the `onchain_fee_rate_leeway_sat_per_vbyte` set in the [Config], if any.
+  bool get autoAcceptedFees;
 
   /// The height of the Liquid block at which the swap will no longer be valid
   /// It should always be populated in case of an outgoing chain swap
@@ -1283,6 +1456,196 @@ abstract class PaymentDetails_Bitcoin extends PaymentDetails {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentDetails_BitcoinImplCopyWith<_$PaymentDetails_BitcoinImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ReceiveAmount {}
+
+/// @nodoc
+abstract class $ReceiveAmountCopyWith<$Res> {
+  factory $ReceiveAmountCopyWith(ReceiveAmount value, $Res Function(ReceiveAmount) then) =
+      _$ReceiveAmountCopyWithImpl<$Res, ReceiveAmount>;
+}
+
+/// @nodoc
+class _$ReceiveAmountCopyWithImpl<$Res, $Val extends ReceiveAmount> implements $ReceiveAmountCopyWith<$Res> {
+  _$ReceiveAmountCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ReceiveAmount
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+abstract class _$$ReceiveAmount_BitcoinImplCopyWith<$Res> {
+  factory _$$ReceiveAmount_BitcoinImplCopyWith(
+          _$ReceiveAmount_BitcoinImpl value, $Res Function(_$ReceiveAmount_BitcoinImpl) then) =
+      __$$ReceiveAmount_BitcoinImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BigInt payerAmountSat});
+}
+
+/// @nodoc
+class __$$ReceiveAmount_BitcoinImplCopyWithImpl<$Res>
+    extends _$ReceiveAmountCopyWithImpl<$Res, _$ReceiveAmount_BitcoinImpl>
+    implements _$$ReceiveAmount_BitcoinImplCopyWith<$Res> {
+  __$$ReceiveAmount_BitcoinImplCopyWithImpl(
+      _$ReceiveAmount_BitcoinImpl _value, $Res Function(_$ReceiveAmount_BitcoinImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ReceiveAmount
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? payerAmountSat = null,
+  }) {
+    return _then(_$ReceiveAmount_BitcoinImpl(
+      payerAmountSat: null == payerAmountSat
+          ? _value.payerAmountSat
+          : payerAmountSat // ignore: cast_nullable_to_non_nullable
+              as BigInt,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReceiveAmount_BitcoinImpl extends ReceiveAmount_Bitcoin {
+  const _$ReceiveAmount_BitcoinImpl({required this.payerAmountSat}) : super._();
+
+  @override
+  final BigInt payerAmountSat;
+
+  @override
+  String toString() {
+    return 'ReceiveAmount.bitcoin(payerAmountSat: $payerAmountSat)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReceiveAmount_BitcoinImpl &&
+            (identical(other.payerAmountSat, payerAmountSat) || other.payerAmountSat == payerAmountSat));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, payerAmountSat);
+
+  /// Create a copy of ReceiveAmount
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReceiveAmount_BitcoinImplCopyWith<_$ReceiveAmount_BitcoinImpl> get copyWith =>
+      __$$ReceiveAmount_BitcoinImplCopyWithImpl<_$ReceiveAmount_BitcoinImpl>(this, _$identity);
+}
+
+abstract class ReceiveAmount_Bitcoin extends ReceiveAmount {
+  const factory ReceiveAmount_Bitcoin({required final BigInt payerAmountSat}) = _$ReceiveAmount_BitcoinImpl;
+  const ReceiveAmount_Bitcoin._() : super._();
+
+  BigInt get payerAmountSat;
+
+  /// Create a copy of ReceiveAmount
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ReceiveAmount_BitcoinImplCopyWith<_$ReceiveAmount_BitcoinImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReceiveAmount_AssetImplCopyWith<$Res> {
+  factory _$$ReceiveAmount_AssetImplCopyWith(
+          _$ReceiveAmount_AssetImpl value, $Res Function(_$ReceiveAmount_AssetImpl) then) =
+      __$$ReceiveAmount_AssetImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String assetId, double? payerAmount});
+}
+
+/// @nodoc
+class __$$ReceiveAmount_AssetImplCopyWithImpl<$Res>
+    extends _$ReceiveAmountCopyWithImpl<$Res, _$ReceiveAmount_AssetImpl>
+    implements _$$ReceiveAmount_AssetImplCopyWith<$Res> {
+  __$$ReceiveAmount_AssetImplCopyWithImpl(
+      _$ReceiveAmount_AssetImpl _value, $Res Function(_$ReceiveAmount_AssetImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ReceiveAmount
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? assetId = null,
+    Object? payerAmount = freezed,
+  }) {
+    return _then(_$ReceiveAmount_AssetImpl(
+      assetId: null == assetId
+          ? _value.assetId
+          : assetId // ignore: cast_nullable_to_non_nullable
+              as String,
+      payerAmount: freezed == payerAmount
+          ? _value.payerAmount
+          : payerAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReceiveAmount_AssetImpl extends ReceiveAmount_Asset {
+  const _$ReceiveAmount_AssetImpl({required this.assetId, this.payerAmount}) : super._();
+
+  @override
+  final String assetId;
+  @override
+  final double? payerAmount;
+
+  @override
+  String toString() {
+    return 'ReceiveAmount.asset(assetId: $assetId, payerAmount: $payerAmount)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReceiveAmount_AssetImpl &&
+            (identical(other.assetId, assetId) || other.assetId == assetId) &&
+            (identical(other.payerAmount, payerAmount) || other.payerAmount == payerAmount));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, assetId, payerAmount);
+
+  /// Create a copy of ReceiveAmount
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReceiveAmount_AssetImplCopyWith<_$ReceiveAmount_AssetImpl> get copyWith =>
+      __$$ReceiveAmount_AssetImplCopyWithImpl<_$ReceiveAmount_AssetImpl>(this, _$identity);
+}
+
+abstract class ReceiveAmount_Asset extends ReceiveAmount {
+  const factory ReceiveAmount_Asset({required final String assetId, final double? payerAmount}) =
+      _$ReceiveAmount_AssetImpl;
+  const ReceiveAmount_Asset._() : super._();
+
+  String get assetId;
+  double? get payerAmount;
+
+  /// Create a copy of ReceiveAmount
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ReceiveAmount_AssetImplCopyWith<_$ReceiveAmount_AssetImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1463,6 +1826,86 @@ abstract class SdkEvent_PaymentPending extends SdkEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SdkEvent_PaymentPendingImplCopyWith<_$SdkEvent_PaymentPendingImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SdkEvent_PaymentRefundableImplCopyWith<$Res> {
+  factory _$$SdkEvent_PaymentRefundableImplCopyWith(
+          _$SdkEvent_PaymentRefundableImpl value, $Res Function(_$SdkEvent_PaymentRefundableImpl) then) =
+      __$$SdkEvent_PaymentRefundableImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Payment details});
+}
+
+/// @nodoc
+class __$$SdkEvent_PaymentRefundableImplCopyWithImpl<$Res>
+    extends _$SdkEventCopyWithImpl<$Res, _$SdkEvent_PaymentRefundableImpl>
+    implements _$$SdkEvent_PaymentRefundableImplCopyWith<$Res> {
+  __$$SdkEvent_PaymentRefundableImplCopyWithImpl(
+      _$SdkEvent_PaymentRefundableImpl _value, $Res Function(_$SdkEvent_PaymentRefundableImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SdkEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? details = null,
+  }) {
+    return _then(_$SdkEvent_PaymentRefundableImpl(
+      details: null == details
+          ? _value.details
+          : details // ignore: cast_nullable_to_non_nullable
+              as Payment,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SdkEvent_PaymentRefundableImpl extends SdkEvent_PaymentRefundable {
+  const _$SdkEvent_PaymentRefundableImpl({required this.details}) : super._();
+
+  @override
+  final Payment details;
+
+  @override
+  String toString() {
+    return 'SdkEvent.paymentRefundable(details: $details)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SdkEvent_PaymentRefundableImpl &&
+            (identical(other.details, details) || other.details == details));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, details);
+
+  /// Create a copy of SdkEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SdkEvent_PaymentRefundableImplCopyWith<_$SdkEvent_PaymentRefundableImpl> get copyWith =>
+      __$$SdkEvent_PaymentRefundableImplCopyWithImpl<_$SdkEvent_PaymentRefundableImpl>(this, _$identity);
+}
+
+abstract class SdkEvent_PaymentRefundable extends SdkEvent {
+  const factory SdkEvent_PaymentRefundable({required final Payment details}) =
+      _$SdkEvent_PaymentRefundableImpl;
+  const SdkEvent_PaymentRefundable._() : super._();
+
+  Payment get details;
+
+  /// Create a copy of SdkEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SdkEvent_PaymentRefundableImplCopyWith<_$SdkEvent_PaymentRefundableImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

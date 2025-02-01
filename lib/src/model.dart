@@ -28,6 +28,108 @@ class AcceptPaymentProposedFeesRequest {
           response == other.response;
 }
 
+/// An asset balance to denote the balance for each asset.
+class AssetBalance {
+  final String assetId;
+  final BigInt balanceSat;
+  final String? name;
+  final String? ticker;
+  final double? balance;
+
+  const AssetBalance({
+    required this.assetId,
+    required this.balanceSat,
+    this.name,
+    this.ticker,
+    this.balance,
+  });
+
+  @override
+  int get hashCode =>
+      assetId.hashCode ^ balanceSat.hashCode ^ name.hashCode ^ ticker.hashCode ^ balance.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AssetBalance &&
+          runtimeType == other.runtimeType &&
+          assetId == other.assetId &&
+          balanceSat == other.balanceSat &&
+          name == other.name &&
+          ticker == other.ticker &&
+          balance == other.balance;
+}
+
+/// Represents the Liquid payment asset info. The asset info is derived from
+/// the available [AssetMetadata] that is set in the [Config].
+class AssetInfo {
+  /// The name of the asset
+  final String name;
+
+  /// The ticker of the asset
+  final String ticker;
+
+  /// The amount calculated from the satoshi amount of the transaction, having its
+  /// decimal shifted to the left by the [precision](AssetMetadata::precision)
+  final double amount;
+
+  const AssetInfo({
+    required this.name,
+    required this.ticker,
+    required this.amount,
+  });
+
+  @override
+  int get hashCode => name.hashCode ^ ticker.hashCode ^ amount.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AssetInfo &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          ticker == other.ticker &&
+          amount == other.amount;
+}
+
+/// Configuration for asset metadata. Each asset metadata item represents an entry in the
+/// [Liquid Asset Registry](https://docs.liquid.net/docs/blockstream-liquid-asset-registry).
+/// An example Liquid Asset in the registry would be [Tether USD](https://assets.blockstream.info/ce091c998b83c78bb71a632313ba3760f1763d9cfcffae02258ffa9865a37bd2.json>).
+class AssetMetadata {
+  /// The asset id of the registered asset
+  final String assetId;
+
+  /// The name of the asset
+  final String name;
+
+  /// The ticker of the asset
+  final String ticker;
+
+  /// The precision used to display the asset amount.
+  /// For example, precision of 2 shifts the decimal 2 places left from the satoshi amount.
+  final int precision;
+
+  const AssetMetadata({
+    required this.assetId,
+    required this.name,
+    required this.ticker,
+    required this.precision,
+  });
+
+  @override
+  int get hashCode => assetId.hashCode ^ name.hashCode ^ ticker.hashCode ^ precision.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AssetMetadata &&
+          runtimeType == other.runtimeType &&
+          assetId == other.assetId &&
+          name == other.name &&
+          ticker == other.ticker &&
+          precision == other.precision;
+}
+
 /// An argument when calling [crate::sdk::LiquidSdk::backup].
 class BackupRequest {
   /// Path to the backup.
@@ -174,14 +276,15 @@ class Config {
   /// Zero-conf minimum accepted fee-rate in millisatoshis per vbyte
   final int zeroConfMinFeeRateMsat;
 
-  /// The url of the real-time sync service
-  final String syncServiceUrl;
+  /// The url of the real-time sync service. Defaults to [BREEZ_SYNC_SERVICE_URL]
+  /// Setting this field to `None` will disable the service
+  final String? syncServiceUrl;
 
   /// Maximum amount in satoshi to accept zero-conf payments with
   /// Defaults to [DEFAULT_ZERO_CONF_MAX_SAT]
   final BigInt? zeroConfMaxAmountSat;
 
-  /// The Breez API key used for making requests to their mempool service
+  /// The Breez API key used for making requests to the sync service
   final String? breezApiKey;
 
   /// A set of external input parsers that are used by [LiquidSdk::parse](crate::sdk::LiquidSdk::parse) when the input
@@ -202,6 +305,12 @@ class Config {
   /// Defaults to zero.
   final int? onchainFeeRateLeewaySatPerVbyte;
 
+  /// A set of asset metadata used by [LiquidSdk::parse](crate::sdk::LiquidSdk::parse) when the input is a
+  /// [LiquidAddressData] and the [asset_id](LiquidAddressData::asset_id) differs from the Liquid Bitcoin asset.
+  /// See [AssetMetadata] for more details on how define asset metadata.
+  /// By default the asset metadata for Liquid Bitcoin and Tether USD are included.
+  final List<AssetMetadata>? assetMetadata;
+
   const Config({
     required this.liquidElectrumUrl,
     required this.bitcoinElectrumUrl,
@@ -211,12 +320,13 @@ class Config {
     required this.network,
     required this.paymentTimeoutSec,
     required this.zeroConfMinFeeRateMsat,
-    required this.syncServiceUrl,
+    this.syncServiceUrl,
     this.zeroConfMaxAmountSat,
     this.breezApiKey,
     this.externalInputParsers,
     required this.useDefaultExternalInputParsers,
     this.onchainFeeRateLeewaySatPerVbyte,
+    this.assetMetadata,
   });
 
   @override
@@ -234,7 +344,8 @@ class Config {
       breezApiKey.hashCode ^
       externalInputParsers.hashCode ^
       useDefaultExternalInputParsers.hashCode ^
-      onchainFeeRateLeewaySatPerVbyte.hashCode;
+      onchainFeeRateLeewaySatPerVbyte.hashCode ^
+      assetMetadata.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -254,7 +365,8 @@ class Config {
           breezApiKey == other.breezApiKey &&
           externalInputParsers == other.externalInputParsers &&
           useDefaultExternalInputParsers == other.useDefaultExternalInputParsers &&
-          onchainFeeRateLeewaySatPerVbyte == other.onchainFeeRateLeewaySatPerVbyte;
+          onchainFeeRateLeewaySatPerVbyte == other.onchainFeeRateLeewaySatPerVbyte &&
+          assetMetadata == other.assetMetadata;
 }
 
 /// An argument when calling [crate::sdk::LiquidSdk::connect].
@@ -429,14 +541,19 @@ enum LiquidNetwork {
 sealed class ListPaymentDetails with _$ListPaymentDetails {
   const ListPaymentDetails._();
 
-  /// The Liquid BIP21 URI or address of the payment
+  /// A Liquid payment
   const factory ListPaymentDetails.liquid({
-    required String destination,
+    /// Optional asset id
+    String? assetId,
+
+    /// Optional BIP21 URI or address
+    String? destination,
   }) = ListPaymentDetails_Liquid;
 
-  /// The Bitcoin address of the payment
+  /// A Bitcoin payment
   const factory ListPaymentDetails.bitcoin({
-    required String address,
+    /// Optional address
+    String? address,
   }) = ListPaymentDetails_Bitcoin;
 }
 
@@ -453,6 +570,7 @@ class ListPaymentsRequest {
   final int? offset;
   final int? limit;
   final ListPaymentDetails? details;
+  final bool? sortAscending;
 
   const ListPaymentsRequest({
     this.filters,
@@ -462,6 +580,7 @@ class ListPaymentsRequest {
     this.offset,
     this.limit,
     this.details,
+    this.sortAscending,
   });
 
   @override
@@ -472,7 +591,8 @@ class ListPaymentsRequest {
       toTimestamp.hashCode ^
       offset.hashCode ^
       limit.hashCode ^
-      details.hashCode;
+      details.hashCode ^
+      sortAscending.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -485,7 +605,8 @@ class ListPaymentsRequest {
           toTimestamp == other.toTimestamp &&
           offset == other.offset &&
           limit == other.limit &&
-          details == other.details;
+          details == other.details &&
+          sortAscending == other.sortAscending;
 }
 
 /// Represents the payment LNURL info
@@ -637,11 +758,17 @@ sealed class PayAmount with _$PayAmount {
   const PayAmount._();
 
   /// The amount in satoshi that will be received
-  const factory PayAmount.receiver({
-    required BigInt amountSat,
-  }) = PayAmount_Receiver;
+  const factory PayAmount.bitcoin({
+    required BigInt receiverAmountSat,
+  }) = PayAmount_Bitcoin;
 
-  /// Indicates that all available funds should be sent
+  /// The amount of an asset that will be received
+  const factory PayAmount.asset({
+    required String assetId,
+    required double receiverAmount,
+  }) = PayAmount_Asset;
+
+  /// Indicates that all available Bitcoin funds should be sent
   const factory PayAmount.drain() = PayAmount_Drain;
 }
 
@@ -677,7 +804,7 @@ class Payment {
   final String? txId;
 
   /// Data to use in the `blinded` param when unblinding the transaction in an explorer.
-  /// See: https://docs.liquid.net/docs/unblinding-transactions
+  /// See: <https://docs.liquid.net/docs/unblinding-transactions>
   final String? unblindingData;
 
   /// Composite timestamp that can be used for sorting or displaying the payment.
@@ -785,14 +912,17 @@ sealed class PaymentDetails with _$PaymentDetails {
     /// The preimage of the paid invoice (proof of payment).
     String? preimage,
 
-    /// Represents the Bolt11 invoice associated with a payment
+    /// Represents the Bolt11/Bolt12 invoice associated with a payment
     /// In the case of a Send payment, this is the invoice paid by the swapper
     /// In the case of a Receive payment, this is the invoice paid by the user
-    String? bolt11,
+    String? invoice,
     String? bolt12Offer,
 
     /// The payment hash of the invoice
     String? paymentHash,
+
+    /// The invoice destination/payee pubkey
+    String? destinationPubkey,
 
     /// The payment LNURL info
     LnUrlInfo? lnurlInfo,
@@ -811,6 +941,12 @@ sealed class PaymentDetails with _$PaymentDetails {
 
     /// Represents the BIP21 `message` field
     required String description,
+
+    /// The asset id
+    required String assetId,
+
+    /// The asset info derived from the [AssetMetadata]
+    AssetInfo? assetInfo,
   }) = PaymentDetails_Liquid;
 
   /// Swapping to or from the Bitcoin chain
@@ -819,6 +955,11 @@ sealed class PaymentDetails with _$PaymentDetails {
 
     /// Represents the invoice description
     required String description,
+
+    /// For an amountless receive swap, this indicates if fees were automatically accepted.
+    /// Fees are auto accepted when the swapper proposes fees that are within the initial
+    /// estimate, plus the `onchain_fee_rate_leeway_sat_per_vbyte` set in the [Config], if any.
+    required bool autoAcceptedFees,
 
     /// The height of the Liquid block at which the swap will no longer be valid
     /// It should always be populated in case of an outgoing chain swap
@@ -983,8 +1124,8 @@ class PrepareLnUrlPayRequest {
   /// The [LnUrlPayRequestData] returned by [crate::input_parser::parse]
   final LnUrlPayRequestData data;
 
-  /// The amount in millisatoshis for this payment
-  final BigInt amountMsat;
+  /// The amount to send
+  final PayAmount amount;
 
   /// An optional comment for this payment
   final String? comment;
@@ -995,14 +1136,13 @@ class PrepareLnUrlPayRequest {
 
   const PrepareLnUrlPayRequest({
     required this.data,
-    required this.amountMsat,
+    required this.amount,
     this.comment,
     this.validateSuccessActionUrl,
   });
 
   @override
-  int get hashCode =>
-      data.hashCode ^ amountMsat.hashCode ^ comment.hashCode ^ validateSuccessActionUrl.hashCode;
+  int get hashCode => data.hashCode ^ amount.hashCode ^ comment.hashCode ^ validateSuccessActionUrl.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -1010,7 +1150,7 @@ class PrepareLnUrlPayRequest {
       other is PrepareLnUrlPayRequest &&
           runtimeType == other.runtimeType &&
           data == other.data &&
-          amountMsat == other.amountMsat &&
+          amount == other.amount &&
           comment == other.comment &&
           validateSuccessActionUrl == other.validateSuccessActionUrl;
 }
@@ -1059,6 +1199,7 @@ class PrepareLnUrlPayResponse {
 
 /// An argument when calling [crate::sdk::LiquidSdk::prepare_pay_onchain].
 class PreparePayOnchainRequest {
+  /// The amount to send
   final PayAmount amount;
 
   /// The optional fee rate of the Bitcoin claim transaction in sat/vB. Defaults to the swapper estimated claim fee.
@@ -1108,30 +1249,32 @@ class PreparePayOnchainResponse {
 
 /// An argument when calling [crate::sdk::LiquidSdk::prepare_receive_payment].
 class PrepareReceiveRequest {
-  final BigInt? payerAmountSat;
   final PaymentMethod paymentMethod;
 
+  /// The amount to be paid in either Bitcoin or another asset
+  final ReceiveAmount? amount;
+
   const PrepareReceiveRequest({
-    this.payerAmountSat,
     required this.paymentMethod,
+    this.amount,
   });
 
   @override
-  int get hashCode => payerAmountSat.hashCode ^ paymentMethod.hashCode;
+  int get hashCode => paymentMethod.hashCode ^ amount.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is PrepareReceiveRequest &&
           runtimeType == other.runtimeType &&
-          payerAmountSat == other.payerAmountSat &&
-          paymentMethod == other.paymentMethod;
+          paymentMethod == other.paymentMethod &&
+          amount == other.amount;
 }
 
 /// Returned when calling [crate::sdk::LiquidSdk::prepare_receive_payment].
 class PrepareReceiveResponse {
   final PaymentMethod paymentMethod;
-  final BigInt? payerAmountSat;
+  final ReceiveAmount? amount;
 
   /// Generally represents the total fees that would be paid to send or receive this payment.
   ///
@@ -1160,7 +1303,7 @@ class PrepareReceiveResponse {
 
   const PrepareReceiveResponse({
     required this.paymentMethod,
-    this.payerAmountSat,
+    this.amount,
     required this.feesSat,
     this.minPayerAmountSat,
     this.maxPayerAmountSat,
@@ -1170,7 +1313,7 @@ class PrepareReceiveResponse {
   @override
   int get hashCode =>
       paymentMethod.hashCode ^
-      payerAmountSat.hashCode ^
+      amount.hashCode ^
       feesSat.hashCode ^
       minPayerAmountSat.hashCode ^
       maxPayerAmountSat.hashCode ^
@@ -1182,7 +1325,7 @@ class PrepareReceiveResponse {
       other is PrepareReceiveResponse &&
           runtimeType == other.runtimeType &&
           paymentMethod == other.paymentMethod &&
-          payerAmountSat == other.payerAmountSat &&
+          amount == other.amount &&
           feesSat == other.feesSat &&
           minPayerAmountSat == other.minPayerAmountSat &&
           maxPayerAmountSat == other.maxPayerAmountSat &&
@@ -1223,16 +1366,18 @@ class PrepareRefundRequest {
 class PrepareRefundResponse {
   final int txVsize;
   final BigInt txFeeSat;
-  final String? refundTxId;
+
+  /// The txid of the last broadcasted refund tx, if any
+  final String? lastRefundTxId;
 
   const PrepareRefundResponse({
     required this.txVsize,
     required this.txFeeSat,
-    this.refundTxId,
+    this.lastRefundTxId,
   });
 
   @override
-  int get hashCode => txVsize.hashCode ^ txFeeSat.hashCode ^ refundTxId.hashCode;
+  int get hashCode => txVsize.hashCode ^ txFeeSat.hashCode ^ lastRefundTxId.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -1241,7 +1386,7 @@ class PrepareRefundResponse {
           runtimeType == other.runtimeType &&
           txVsize == other.txVsize &&
           txFeeSat == other.txFeeSat &&
-          refundTxId == other.refundTxId;
+          lastRefundTxId == other.lastRefundTxId;
 }
 
 /// An argument when calling [crate::sdk::LiquidSdk::prepare_send_payment].
@@ -1291,6 +1436,22 @@ class PrepareSendResponse {
           runtimeType == other.runtimeType &&
           destination == other.destination &&
           feesSat == other.feesSat;
+}
+
+@freezed
+sealed class ReceiveAmount with _$ReceiveAmount {
+  const ReceiveAmount._();
+
+  /// The amount in satoshi that should be paid
+  const factory ReceiveAmount.bitcoin({
+    required BigInt payerAmountSat,
+  }) = ReceiveAmount_Bitcoin;
+
+  /// The amount of an asset that should be paid
+  const factory ReceiveAmount.asset({
+    required String assetId,
+    double? payerAmount,
+  }) = ReceiveAmount_Asset;
 }
 
 /// An argument when calling [crate::sdk::LiquidSdk::receive_payment].
@@ -1432,14 +1593,19 @@ class RefundableSwap {
   /// Amount that is refundable, from all UTXOs
   final BigInt amountSat;
 
+  /// The txid of the last broadcasted refund tx, if any
+  final String? lastRefundTxId;
+
   const RefundableSwap({
     required this.swapAddress,
     required this.timestamp,
     required this.amountSat,
+    this.lastRefundTxId,
   });
 
   @override
-  int get hashCode => swapAddress.hashCode ^ timestamp.hashCode ^ amountSat.hashCode;
+  int get hashCode =>
+      swapAddress.hashCode ^ timestamp.hashCode ^ amountSat.hashCode ^ lastRefundTxId.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -1448,7 +1614,8 @@ class RefundableSwap {
           runtimeType == other.runtimeType &&
           swapAddress == other.swapAddress &&
           timestamp == other.timestamp &&
-          amountSat == other.amountSat;
+          amountSat == other.amountSat &&
+          lastRefundTxId == other.lastRefundTxId;
 }
 
 /// An argument when calling [crate::sdk::LiquidSdk::restore].
@@ -1478,6 +1645,9 @@ sealed class SdkEvent with _$SdkEvent {
   const factory SdkEvent.paymentPending({
     required Payment details,
   }) = SdkEvent_PaymentPending;
+  const factory SdkEvent.paymentRefundable({
+    required Payment details,
+  }) = SdkEvent_PaymentRefundable;
   const factory SdkEvent.paymentRefunded({
     required Payment details,
   }) = SdkEvent_PaymentRefunded;
@@ -1598,12 +1768,16 @@ class WalletInfo {
   /// The wallet's pubkey. Used to verify signed messages.
   final String pubkey;
 
+  /// Asset balances of non Liquid Bitcoin assets
+  final List<AssetBalance> assetBalances;
+
   const WalletInfo({
     required this.balanceSat,
     required this.pendingSendSat,
     required this.pendingReceiveSat,
     required this.fingerprint,
     required this.pubkey,
+    required this.assetBalances,
   });
 
   @override
@@ -1612,7 +1786,8 @@ class WalletInfo {
       pendingSendSat.hashCode ^
       pendingReceiveSat.hashCode ^
       fingerprint.hashCode ^
-      pubkey.hashCode;
+      pubkey.hashCode ^
+      assetBalances.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -1623,5 +1798,6 @@ class WalletInfo {
           pendingSendSat == other.pendingSendSat &&
           pendingReceiveSat == other.pendingReceiveSat &&
           fingerprint == other.fingerprint &&
-          pubkey == other.pubkey;
+          pubkey == other.pubkey &&
+          assetBalances == other.assetBalances;
 }

@@ -302,6 +302,9 @@ class Config {
   /// The SideSwap API key used for making requests to the SideSwap payjoin service
   final String? sideswapApiKey;
 
+  /// Set this to false to disable the use of Magic Routing Hints (MRH) to send payments. Enabled by default.
+  final bool useMagicRoutingHints;
+
   const Config({
     required this.liquidExplorer,
     required this.bitcoinExplorer,
@@ -316,6 +319,7 @@ class Config {
     this.onchainFeeRateLeewaySat,
     this.assetMetadata,
     this.sideswapApiKey,
+    required this.useMagicRoutingHints,
   });
 
   @override
@@ -332,7 +336,8 @@ class Config {
       useDefaultExternalInputParsers.hashCode ^
       onchainFeeRateLeewaySat.hashCode ^
       assetMetadata.hashCode ^
-      sideswapApiKey.hashCode;
+      sideswapApiKey.hashCode ^
+      useMagicRoutingHints.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -351,7 +356,8 @@ class Config {
           useDefaultExternalInputParsers == other.useDefaultExternalInputParsers &&
           onchainFeeRateLeewaySat == other.onchainFeeRateLeewaySat &&
           assetMetadata == other.assetMetadata &&
-          sideswapApiKey == other.sideswapApiKey;
+          sideswapApiKey == other.sideswapApiKey &&
+          useMagicRoutingHints == other.useMagicRoutingHints;
 }
 
 /// An argument when calling [crate::sdk::LiquidSdk::connect].
@@ -772,6 +778,10 @@ sealed class PayAmount with _$PayAmount {
     required String assetId,
     required double receiverAmount,
     bool? estimateAssetFees,
+
+    /// Specifies whether or not to always use the wallet's L-BTC to execute the payment.
+    /// If true, it will try swapping the asset via the [Side Swap Service](crate::side_swap::api::SideSwapService)
+    bool? payWithBitcoin,
   }) = PayAmount_Asset;
 
   /// Indicates that all available Bitcoin funds should be sent
@@ -1457,10 +1467,25 @@ class PrepareSendResponse {
   /// are funds available in this asset to pay fees.
   final double? estimatedAssetFees;
 
-  const PrepareSendResponse({required this.destination, this.amount, this.feesSat, this.estimatedAssetFees});
+  /// The amount of funds required (in satoshi) to execute a SideSwap payment, excluding fees.
+  /// Only present when [PayAmount::Asset::pay_with_bitcoin] is set to `true`.
+  final BigInt? exchangeAmountSat;
+
+  const PrepareSendResponse({
+    required this.destination,
+    this.amount,
+    this.feesSat,
+    this.estimatedAssetFees,
+    this.exchangeAmountSat,
+  });
 
   @override
-  int get hashCode => destination.hashCode ^ amount.hashCode ^ feesSat.hashCode ^ estimatedAssetFees.hashCode;
+  int get hashCode =>
+      destination.hashCode ^
+      amount.hashCode ^
+      feesSat.hashCode ^
+      estimatedAssetFees.hashCode ^
+      exchangeAmountSat.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -1470,7 +1495,8 @@ class PrepareSendResponse {
           destination == other.destination &&
           amount == other.amount &&
           feesSat == other.feesSat &&
-          estimatedAssetFees == other.estimatedAssetFees;
+          estimatedAssetFees == other.estimatedAssetFees &&
+          exchangeAmountSat == other.exchangeAmountSat;
 }
 
 @freezed

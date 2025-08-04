@@ -2762,6 +2762,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
     wireObj.onchain_fee_rate_leeway_sat = cst_encode_opt_box_autoadd_u_64(apiObj.onchainFeeRateLeewaySat);
     wireObj.asset_metadata = cst_encode_opt_list_asset_metadata(apiObj.assetMetadata);
     wireObj.sideswap_api_key = cst_encode_opt_String(apiObj.sideswapApiKey);
+    wireObj.use_magic_routing_hints = cst_encode_bool(apiObj.useMagicRoutingHints);
   }
 
   @protected
@@ -3387,10 +3388,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
       var pre_asset_id = cst_encode_String(apiObj.assetId);
       var pre_receiver_amount = cst_encode_f_64(apiObj.receiverAmount);
       var pre_estimate_asset_fees = cst_encode_opt_box_autoadd_bool(apiObj.estimateAssetFees);
+      var pre_pay_with_bitcoin = cst_encode_opt_box_autoadd_bool(apiObj.payWithBitcoin);
       wireObj.tag = 1;
       wireObj.kind.Asset.asset_id = pre_asset_id;
       wireObj.kind.Asset.receiver_amount = pre_receiver_amount;
       wireObj.kind.Asset.estimate_asset_fees = pre_estimate_asset_fees;
+      wireObj.kind.Asset.pay_with_bitcoin = pre_pay_with_bitcoin;
       return;
     }
     if (apiObj is PayAmount_Drain) {
@@ -3741,6 +3744,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
     wireObj.amount = cst_encode_opt_box_autoadd_pay_amount(apiObj.amount);
     wireObj.fees_sat = cst_encode_opt_box_autoadd_u_64(apiObj.feesSat);
     wireObj.estimated_asset_fees = cst_encode_opt_box_autoadd_f_64(apiObj.estimatedAssetFees);
+    wireObj.exchange_amount_sat = cst_encode_opt_box_autoadd_u_64(apiObj.exchangeAmountSat);
   }
 
   @protected
@@ -6720,6 +6724,8 @@ final class wire_cst_PayAmount_Asset extends ffi.Struct {
   external double receiver_amount;
 
   external ffi.Pointer<ffi.Bool> estimate_asset_fees;
+
+  external ffi.Pointer<ffi.Bool> pay_with_bitcoin;
 }
 
 final class PayAmountKind extends ffi.Union {
@@ -6961,6 +6967,8 @@ final class wire_cst_prepare_send_response extends ffi.Struct {
   external ffi.Pointer<ffi.Uint64> fees_sat;
 
   external ffi.Pointer<ffi.Double> estimated_asset_fees;
+
+  external ffi.Pointer<ffi.Uint64> exchange_amount_sat;
 }
 
 final class wire_cst_send_payment_request extends ffi.Struct {
@@ -7324,6 +7332,9 @@ final class wire_cst_config extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_asset_metadata> asset_metadata;
 
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> sideswap_api_key;
+
+  @ffi.Bool()
+  external bool use_magic_routing_hints;
 }
 
 final class wire_cst_connect_request extends ffi.Struct {
